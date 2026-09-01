@@ -1,0 +1,82 @@
+@reference "../index.css";
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-sans);
+}
+
+.app-shell {
+    background: var(--color-bg);
+}
+
+.app-title,
+.landing-shell h1,
+.landing-shell h2,
+.landing-shell h3 {
+    font-family: var(--font-display);
+}
+
+.app-frame {
+    min-height: 100vh;
+}
+
+.app-sidebar {
+    border-right: 1px solid var(--color-rail-line);
+    background: var(--color-rail-2);
+    color: var(--color-rail-text);
+}
+
+.app-panel {
+    border: 1px solid var(--color-hairline);
+    background: var(--color-surface);
+}
+
+.app-panel-strong {
+    border: 1px solid var(--color-hairline-strong);
+    background: var(--color-surface);
+    box-shadow: 0 12px 28px oklch(0.24 0.022 250 / 0.10);
+}
+
+.app-menu-item {
+    transition: background 0.12s ease, color 0.12s ease;
+}
+
+.toast-enter {
+    animation: slide-down 0.24s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .toast-enter {
+        animation: none;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+}
+
+@keyframes slide-down {
+    from {
+        transform: translateY(-8px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.landing-shell {
+    background: var(--color-bg);
+}
+
+.landing-slogan {
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+    color: var(--color-text);
+}

@@ -1,0 +1,285 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    /* 手术室 · 荧光冷白地面（高色温，不是奶油，不是营销纯白） */
+    --color-bg: oklch(0.968 0.007 230);
+    --color-bg-grad-a: oklch(0.975 0.006 228);
+    --color-bg-grad-b: oklch(0.958 0.009 232);
+    /* 面板 / 弹窗 — 最亮的无菌白 */
+    --color-surface: oklch(0.995 0.002 230);
+    /* 侧栏 / 底栏 chrome — 浅冷灰，仍属亮色系，勿再当暗色用 */
+    --color-surface-2: oklch(0.955 0.008 232);
+    --color-well: oklch(0.948 0.008 228);
+    /* 可输入 / 可点选控件面 — 纯白，与标签拉开对比 */
+    --color-field: #ffffff;
+    --color-field-muted: oklch(0.978 0.005 230);
+
+    /* 不锈钢描边 */
+    --color-hairline: oklch(0.48 0.018 230 / 0.38);
+    --color-hairline-strong: oklch(0.38 0.022 230 / 0.52);
+    --color-hairline-soft: oklch(0.52 0.014 230 / 0.22);
+
+    /* 冷近黑四档 — 标签用 text-2，输入字用 text */
+    --color-text: oklch(0.22 0.022 250);
+    --color-text-2: oklch(0.34 0.020 250);
+    --color-text-3: oklch(0.46 0.016 248);
+    --color-text-4: oklch(0.58 0.012 246);
+
+    /* Accent — 手术 scrub 绿 */
+    --color-accent: oklch(0.42 0.085 170);
+    --color-accent-2: oklch(0.52 0.075 168);
+    --color-accent-soft: oklch(0.42 0.085 170 / 0.18);
+    --color-accent-dim: oklch(0.42 0.085 170 / 0.10);
+    --color-accent-glow: oklch(0.42 0.085 170 / 0.18);
+    --color-on-accent: oklch(0.985 0.010 170);
+
+    /* 仪器轨场色（顶栏 / 侧栏整条） */
+    --color-rail: oklch(0.355 0.072 172);
+    --color-rail-2: oklch(0.315 0.068 174);
+    --color-rail-text: oklch(0.975 0.010 170);
+    --color-rail-muted: oklch(0.82 0.028 170);
+    --color-rail-line: oklch(0.55 0.045 172 / 0.40);
+
+    /* 状态色 */
+    --color-good: oklch(0.46 0.11 155);
+    --color-warn: oklch(0.62 0.14 95);
+    --color-danger: oklch(0.52 0.18 25);
+
+    /* 花费 / 进行中 — 手术标记黄（冷，面积克制） */
+    --color-warm: oklch(0.62 0.14 95);
+    --color-warm-bright: oklch(0.74 0.13 95);
+    --color-warm-fade: oklch(0.62 0.14 95 / 0.45);
+    --color-warm-soft: oklch(0.90 0.08 95 / 0.55);
+    --color-warm-tint: oklch(0.88 0.09 95 / 0.62);
+    --color-warm-tint-faint: oklch(0.92 0.05 95 / 0.32);
+    --color-warm-ring: oklch(0.62 0.14 95 / 0.38);
+    --color-warm-glow: oklch(0.62 0.14 95 / 0.22);
+
+    /* 危险色变体 — 亮底可读 */
+    --color-danger-2: oklch(0.58 0.16 25);
+    --color-danger-bright: oklch(0.66 0.15 25);
+    --color-danger-soft: oklch(0.90 0.08 25 / 0.42);
+    --color-danger-ring: oklch(0.52 0.18 25 / 0.35);
+    --color-danger-glow: oklch(0.52 0.18 25 / 0.20);
+
+    /* 字体 — Source Sans 3 操作面；Barlow Condensed 仪器读数；Noto SC 中文 */
+    --font-sans: "Source Sans 3", "Noto Sans SC", system-ui, sans-serif;
+    --font-display: "Source Sans 3", "Noto Sans SC", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", "Noto Sans Mono", ui-monospace, monospace;
+    --font-editorial: "Barlow Condensed", "Noto Sans SC", sans-serif;
+
+    --shadow-glow: 0 1px 0 oklch(0.24 0.022 250 / 0.05), 0 10px 28px oklch(0.24 0.022 250 / 0.10);
+
+    /* 排版节奏 */
+    --text-ui: 0.8125rem;
+    --text-ui-sm: 0.75rem;
+    --leading-ui: 1.45;
+    --tracking-display: -0.03em;
+    --radius-control: 0.5rem;
+    --radius-panel: 0.75rem;
+    --chrome-header-h: 3.5rem;
+    --chrome-sidebar-w: 17.5rem;
+    --chrome-sidebar-collapsed: 4.5rem;
+
+    /* Legacy aliases — 映射到手术室谱，避免旧 class 打出黑洞 */
+    --color-ink-950: var(--color-well);
+    --color-ink-900: var(--color-bg);
+    --color-ink-850: var(--color-surface-2);
+    --color-ink-800: var(--color-surface);
+    --color-ink-700: var(--color-surface-2);
+    --color-neon-500: var(--color-accent);
+    --color-neon-400: var(--color-accent-2);
+    --color-neon-300: var(--color-accent-2);
+    --color-amberx-500: var(--color-warm);
+    --color-amberx-400: var(--color-warm-bright);
+    --color-amberx-300: var(--color-warm-bright);
+
+    --color-studio-bg: var(--color-bg);
+    --color-studio-panel: var(--color-surface);
+    --color-studio-border: var(--color-hairline);
+    --color-accent-start: var(--color-accent);
+    --color-accent-end: var(--color-accent-2);
+}
+
+html { color-scheme: light; }
+
+body {
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: var(--leading-ui);
+    letter-spacing: -0.011em;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+::selection {
+    background: oklch(0.42 0.085 170 / 0.22);
+    color: var(--color-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+.num {
+    font-family: var(--font-mono);
+    font-feature-settings: "tnum" 1;
+}
+
+.display-serif {
+    font-family: var(--font-editorial);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: none;
+}
+
+.ui-kicker {
+    font-family: var(--font-editorial);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb {
+    background: oklch(0.55 0.018 230 / 0.40);
+    border-radius: 1px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.42 0.022 230 / 0.55);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+::-webkit-scrollbar-track { background: transparent; }
+
+@utility focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-1 focus-visible:ring-offset-[var(--color-bg)];
+}
+
+/* 仪器轨内焦点环：偏移色跟轨面，避免冷白光圈 */
+[data-chrome="rail"] .focus-ring {
+    --tw-ring-offset-color: var(--color-rail-2);
+}
+[data-chrome="rail"] .focus-ring:focus-visible {
+    --tw-ring-color: oklch(0.82 0.04 170 / 0.85);
+}
+
+@keyframes tw-blink {
+    0%, 50% { opacity: 1; }
+    50.01%, 100% { opacity: 0; }
+}
+
+@keyframes arc-slide-in {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: none; }
+}
+
+@utility arc-slide-in {
+    @media (prefers-reduced-motion: no-preference) {
+        animation: arc-slide-in 0.25s ease-out;
+    }
+}
+
+/* 仪器轨 — 顶栏 / 侧栏整条 scrub 绿 */
+.or-rail {
+    background: var(--color-rail);
+    color: var(--color-rail-text);
+}
+.or-rail-deep {
+    background: var(--color-rail-2);
+    color: var(--color-rail-text);
+}
+
+/* 监视器井 — 主画布 */
+.or-well {
+    background: var(--color-well);
+}
+
+/* 无菌面板（原玻璃皮肤） */
+.arc-glass-panel {
+    background: var(--color-surface);
+    border: 1px solid var(--color-hairline);
+    box-shadow: 0 12px 32px oklch(0.24 0.022 250 / 0.12);
+}
+
+.arc-glass-hairline {
+    pointer-events: none;
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 1px;
+    background: var(--color-accent);
+}
+.arc-glass-hairline[data-tone="warm"] {
+    background: var(--color-warm);
+}
+
+.arc-close-btn {
+    color: var(--color-text-3);
+    transition: color 150ms, background 150ms;
+}
+.arc-close-btn:hover {
+    color: var(--color-text);
+    background: oklch(0.24 0.022 250 / 0.06);
+}
+
+.arc-btn-secondary {
+    color: var(--color-text-2);
+    border: 1px solid var(--color-hairline);
+    background: var(--color-field);
+    transition: color 150ms, background 150ms, border-color 150ms;
+}
+.arc-btn-secondary:hover:not(:disabled) {
+    color: var(--color-text);
+    background: var(--color-field-muted);
+    border-color: var(--color-hairline-strong);
+}
+.arc-btn-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.arc-btn-primary {
+    color: var(--color-on-accent);
+    background: var(--color-accent);
+    border: 1px solid oklch(0.32 0.07 172);
+    box-shadow: none;
+    transition: background 150ms, opacity 150ms;
+}
+.arc-btn-primary[data-tone="warm"] {
+    background: var(--color-warm);
+    border-color: oklch(0.52 0.12 95);
+    color: oklch(0.20 0.04 95);
+}
+.arc-btn-primary[data-tone="danger"] {
+    background: var(--color-danger);
+    border-color: oklch(0.42 0.16 25);
+    color: var(--color-on-accent);
+}
+.arc-btn-primary:hover:not(:disabled) {
+    background: var(--color-accent-2);
+}
+.arc-btn-primary[data-tone="warm"]:hover:not(:disabled) {
+    background: var(--color-warm-bright);
+}
+.arc-btn-primary[data-tone="danger"]:hover:not(:disabled) {
+    background: var(--color-danger-2);
+}
+.arc-btn-primary:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}

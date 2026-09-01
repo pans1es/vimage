@@ -1,0 +1,113 @@
+import { useRef, useState, type ReactNode } from "react";
+import { ChevronDown } from "lucide-react";
+import { Popover } from "@/components/ui/Popover";
+
+// ---------------------------------------------------------------------------
+// DropdownPill
+// ---------------------------------------------------------------------------
+
+interface DropdownPillProps<T extends string> {
+  value: T;
+  options: readonly T[];
+  onChange: (value: T) => void;
+  label?: string;
+  className?: string;
+  renderOption?: (value: T) => ReactNode;
+  /** 只读展示：仍显示当前取值，但不能展开选项。 */
+  disabled?: boolean;
+}
+
+export function DropdownPill<T extends string>({
+  value,
+  options,
+  onChange,
+  label,
+  className,
+  renderOption,
+  disabled,
+}: DropdownPillProps<T>) {
+  const [open, setOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const display = (v: T): ReactNode => (renderOption ? renderOption(v) : v);
+
+  return (
+    <div ref={containerRef} className={`relative inline-block ${className ?? ""}`}>
+      {/* Trigger */}
+      <button
+        type="button"
+        onClick={() => setOpen((prev) => !prev)}
+        disabled={disabled}
+        className="focus-ring inline-flex items-center gap-1 rounded-[2px] px-2.5 py-0.5 text-xs transition-colors disabled:cursor-default"
+        style={{
+          background: "var(--color-field)",
+          border: "1px solid var(--color-hairline)",
+          color: "var(--color-text-2)",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = "var(--color-field-muted)";
+          e.currentTarget.style.color = "var(--color-text)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = "var(--color-field)";
+          e.currentTarget.style.color = "var(--color-text-2)";
+        }}
+      >
+        {label && <span style={{ color: "var(--color-text-3)" }}>{label}</span>}
+        <span>{display(value)}</span>
+        {/* 只读态不画展开箭头：留着会暗示一个点不开的下拉 */}
+        {!disabled && (
+          <ChevronDown className={`h-3 w-3 transition-transform ${open ? "rotate-180" : ""}`} />
+        )}
+      </button>
+
+      {/* Options popover */}
+      <Popover
+        open={open && !disabled}
+        onClose={() => setOpen(false)}
+        anchorRef={containerRef}
+        align="start"
+        sideOffset={4}
+        width="min-w-[140px]"
+        className="overflow-hidden rounded-lg py-1 shadow-xl"
+        style={{
+          background: "var(--color-surface)",
+          border: "1px solid var(--color-hairline)",
+        }}
+      >
+        {options.map((opt) => {
+          const isActive = opt === value;
+          return (
+            <button
+              key={opt}
+              type="button"
+              disabled={disabled}
+              onClick={() => {
+                onChange(opt);
+                setOpen(false);
+              }}
+              className="flex w-full items-center px-3 py-1.5 text-left text-xs transition-colors disabled:cursor-default"
+              style={{
+                background: isActive ? "var(--color-accent-dim)" : "transparent",
+                color: isActive ? "var(--color-accent)" : "var(--color-text-2)",
+              }}
+              onMouseEnter={(e) => {
+                if (!isActive) {
+                  e.currentTarget.style.background = "var(--color-field-muted)";
+                  e.currentTarget.style.color = "var(--color-text)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isActive) {
+                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.color = "var(--color-text-2)";
+                }
+              }}
+            >
+              {display(opt)}
+            </button>
+          );
+        })}
+      </Popover>
+    </div>
+  );
+}
